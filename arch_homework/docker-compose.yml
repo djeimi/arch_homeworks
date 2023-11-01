@@ -40,9 +40,9 @@ services:
       - DB_PASSWORD=stud
       - DB_DATABASE=archdb
     ports:
-      - 8083:8083
+      - 8081:8081
     healthcheck:
-      test: curl -sS http://127.0.0.1:8083 || exit 1
+      test: curl -sS http://127.0.0.1:8081 || exit 1
       interval: 5s
       timeout: 10s
       retries: 3
@@ -66,9 +66,9 @@ services:
       - DB_PASSWORD=stud
       - DB_DATABASE=archdb
     ports:
-      - 8081:8081
+      - 8082:8082
     healthcheck:
-      test: curl -sS http://127.0.0.1:8081 || exit 1
+      test: curl -sS http://127.0.0.1:8082 || exit 1
       interval: 5s
       timeout: 10s
       retries: 3
