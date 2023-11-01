@@ -41,11 +41,6 @@ services:
       - DB_DATABASE=archdb
     ports:
       - 8081:8081
-    healthcheck:
-      test: curl -sS http://127.0.0.1:8081 || exit 1
-      interval: 5s
-      timeout: 10s
-      retries: 3
     networks:
       - arch-network
     depends_on:
@@ -65,17 +60,10 @@ services:
       - DB_DATABASE=archdb
     ports:
       - 8082:8082
-    healthcheck:
-      test: curl -sS http://127.0.0.1:8082 || exit 1
-      interval: 5s
-      timeout: 10s
-      retries: 3
     networks:
       - arch-network
     depends_on:
       db-node:
-        condition: service_healthy
-      user_service:
         condition: service_healthy
 volumes:
   db-node-data:
