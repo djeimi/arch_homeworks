@@ -1,0 +1,62 @@
+version: '2.1'
+
+services:
+  db-node:
+    build:
+      context: mariadb
+      dockerfile: Dockerfile
+    container_name: db-node
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: archdb
+      MYSQL_USER: stud
+      MYSQL_PASSWORD: stud
+      MYSQL_ROOT_PASSWORD: '1'
+    command: >
+      --sql-mode='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+      --general-log=ON
+      --log-queries-not-using-indexes=ON
+    networks:
+      - arch-network
+    ports:
+      - 3360:3306
+    healthcheck:
+      test: "/usr/bin/mariadb --user=stud --password=stud --execute \"SHOW DATABASES;\""
+      interval: 15s
+      timeout: 1s
+      retries: 5
+    volumes:
+      - db-node-data:/var/lib/mysql
+
+  product_service:
+    build:
+      context: product_service
+      dockerfile: Dockerfile
+    container_name: product_service
+    environment:
+      - DB_HOST=db-node
+      - DB_PORT=3306
+      - DB_LOGIN=stud
+      - DB_PASSWORD=stud
+      - DB_DATABASE=archdb
+    ports:
+      - 8081:8081
+    healthcheck:
+      test: curl -sS http://127.0.0.1:8081 || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    networks:
+      - arch-network
+    depends_on:
+      db-node:
+        condition: service_healthy
+      user_service:
+        condition: service_healthy
+volumes:
+  db-node-data:
+
+networks:
+  arch-network:
+    driver: "bridge"
+    external: false
