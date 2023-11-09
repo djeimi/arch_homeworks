@@ -7,4 +7,4 @@ ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone  https://github.com/djeimi/basket_service.git
 RUN sudo ldconfig
 RUN cd user_service && mkdir build && cd build && cmake  .. && make
-ENTRYPOINT [ "user_service/build/basket_service" ]
+ENTRYPOINT [ "basket_service/build/basket_service" ]
