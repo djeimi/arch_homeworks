@@ -65,6 +65,25 @@ services:
     depends_on:
       db-node:
         condition: service_healthy
+
+  basket_service:
+    build:
+      context: basket_service
+      dockerfile: Dockerfile
+    container_name: basket_service
+    environment:
+      - DB_HOST=db-node
+      - DB_PORT=3306
+      - DB_LOGIN=stud
+      - DB_PASSWORD=stud
+      - DB_DATABASE=archdb
+    ports:
+      - 8084:8084
+    networks:
+      - arch-network
+    depends_on:
+      db-node:
+        condition: service_healthy
 volumes:
   db-node-data:
 
