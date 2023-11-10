@@ -6,5 +6,5 @@ RUN git clone -b poco-1.11.7-release https://github.com/pocoproject/poco.git && 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone  https://github.com/djeimi/basket_service.git
 RUN sudo ldconfig
-RUN cd user_service && mkdir build && cd build && cmake  .. && make
+RUN cd basket_service && mkdir build && cd build && cmake  .. && make
 ENTRYPOINT [ "basket_service/build/basket_service" ]
