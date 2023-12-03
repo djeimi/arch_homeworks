@@ -105,7 +105,7 @@ services:
       dockerfile: Dockerfile
     container_name: product_service
     environment:
-      - DB_HOST=db-proxysql
+      - DB_HOST=proxysql
       - DB_PORT=6033
       - DB_LOGIN=stud
       - DB_PASSWORD=stud
