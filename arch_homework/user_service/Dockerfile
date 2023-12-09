@@ -7,5 +7,5 @@ RUN git clone https://github.com/tdv/redis-cpp.git && cd redis-cpp && mkdir buil
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --branch=lab_4 https://github.com/djeimi/user_service.git
 RUN sudo ldconfig
-RUN cd user_service && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+RUN cd user_service && mkdir build && cd build && cmake  .. && make
 ENTRYPOINT [ "user_service/build/user_service" ]
