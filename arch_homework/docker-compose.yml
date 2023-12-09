@@ -75,10 +75,7 @@ services:
         condition: service_healthy
 
   cache:
-    build:
-      context: redis
-      dockerfile: Dockerfile
-    container_name: redis
+    image: redis:6.2-alpine
     restart: always
     ports:
       - '6379:6379'
