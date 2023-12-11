@@ -176,7 +176,6 @@ volumes:
   db-node-2-data:
   proxysql-data:
   cache:
-    driver: local
 
 networks:
   arch-network:
